@@ -1,0 +1,17 @@
+354b24d67cbe6482291ab1df95389ef9 *DESCRIPTION
+5110557b4edb5a85382992b81372c21b *NAMESPACE
+4c3b825795626304cd3db3b4c7bf51bd *R/RPtest.R
+8f874981c2c35bf6d56ae13bca277f62 *R/RPtest_single.R
+be886716b897e29a9e39ed76b818f601 *R/RcppExports.R
+ed4f034e06fd5e2690af86cfd614453e *R/projections.R
+08daf7ae38af90749b4431792e02cd31 *R/pvals.R
+83daf9ab98ae3f6d1b86e50317a527be *R/resid_gen.R
+62cd3a0d99d5f418415b498e6ec49f42 *R/sqrt_lasso.R
+485ec66e3f9edf295c8264d7c0c13466 *R/test_funcs.R
+96a2540fa616eb7000d342cf5068161b *man/RPtest.Rd
+d8ee9be29da3e58cdadd0b7a23c39f0b *man/RPtest_single.Rd
+87915debd37b984fb94cff080543fa84 *man/pval.Rd
+00937c238ab6778ef751e4f776f6712a *man/sparse_proj.Rd
+3ccdb9ee80dc8900bafa8fd26600652b *man/sqrt_lasso.Rd
+2ee00893e434bbfc526c308deedb5aee *src/Aux_functions.cpp
+000506de40e3e71e112c03b5b0910df9 *src/RcppExports.cpp
