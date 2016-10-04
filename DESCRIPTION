@@ -2,7 +2,7 @@ Package: RPtests
 Type: Package
 Title: Goodness of Fit Tests for High-Dimensional Linear Regression
         Models
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
   person("Rajen", "Shah", email = "r.shah@statslab.cam.ac.uk", role = c("aut", "cre")),
   person("Peter", "Buhlmann", email="peter.buehlmann@stat.math.ethz.ch ", role="aut"))
@@ -18,9 +18,9 @@ URL: http://arxiv.org/abs/1511.03334
 LazyData: TRUE
 RoxygenNote: 5.0.1
 NeedsCompilation: yes
-Packaged: 2016-06-20 09:27:25 UTC; rds37
+Packaged: 2016-10-04 08:04:24 UTC; rds37
 Author: Rajen Shah [aut, cre],
   Peter Buhlmann [aut]
 Maintainer: Rajen Shah <r.shah@statslab.cam.ac.uk>
 Repository: CRAN
-Date/Publication: 2016-06-20 20:33:14
+Date/Publication: 2016-10-04 14:35:10

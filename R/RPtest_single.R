@@ -26,7 +26,7 @@
 #' x <- scale(matrix(rnorm(50*100), 50, 100))
 #' x <- scale(x)
 #' y <- as.numeric(x[, 1:5] %*% rep(1, 5) + rnorm(nrow(x)))
-#' out <- RPtest_single(x=x, y=y, B=50)
+#' out <- RPtest_single(x=x, y=y, B=25)
 #' @export
 RPtest_single <- function(x, y, x_alt, B=100L, rand_gen=rnorm, mc.cores=1L) {
 
@@ -45,7 +45,7 @@ RPtest_single <- function(x, y, x_alt, B=100L, rand_gen=rnorm, mc.cores=1L) {
   y <- as.numeric(y)
   if (length(y) != n) stop("y must have nrow(x) components")
   if (!missing(x_alt)) {
-    if (!is.matrix(x_alt) | nrow(x_alt) != n | ncol(x_alt != p) | any(is.na(x_alt)))
+    if (!is.matrix(x_alt) | nrow(x_alt) != n | ncol(x_alt) != p | any(is.na(x_alt)))
       stop("x_alt must have the same dimensions as x and have no missing values")
   } else {
     x_alt <- sparse_proj(x)

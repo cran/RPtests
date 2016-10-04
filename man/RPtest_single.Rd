@@ -39,7 +39,7 @@ Compute p-values for the significance of each variable in \code{x}.
 x <- scale(matrix(rnorm(50*100), 50, 100))
 x <- scale(x)
 y <- as.numeric(x[, 1:5] \%*\% rep(1, 5) + rnorm(nrow(x)))
-out <- RPtest_single(x=x, y=y, B=50)
+out <- RPtest_single(x=x, y=y, B=25)
 }
 \references{
 Shah, R. D., Buhlmann, P. (2016) \emph{Goodness of fit tests for
