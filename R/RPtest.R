@@ -167,7 +167,8 @@ RPtest <- function(x, y, resid_type=c("Lasso", "OLS"), test=c("nonlin", "group",
         sample((y - sig_est)/sigma_hat, n_samp, replace=TRUE)
       }
     }
-    error_mat <- sigma_est * matrix(rand_gen(n*B), n, B)
+    # error_mat needed?
+    #error_mat <- sigma_est * matrix(rand_gen(n*B), n, B)
 
     # Simulated residuals
     resid_sim <- resid_gen_lasso(x, signal = sig_est, sigma_est=sigma_est, B=B, rand_gen=rand_gen,
@@ -176,11 +177,16 @@ RPtest <- function(x, y, resid_type=c("Lasso", "OLS"), test=c("nonlin", "group",
     # True residuals
     resid <- resid_lasso(x, y, lam0=NULL)
 
-    rm(error_mat)
+    #rm(error_mat)
   } else {
     # OLS
     resid_out <- resid_ols(x, y, incl_proj=TRUE)
     resid <- resid_out$resid
+    if (is.null(rand_gen)) {
+      rand_gen <- function(n_samp) {
+        sample(resid, n_samp, replace=TRUE)
+      }
+    }
     resid_sim <- resid_gen_ols(x, proj=resid_out$proj, B=B, rand_gen=rand_gen)
     rm(resid_out)
   }
