@@ -50,7 +50,7 @@ comp_sigma_est <- function(x, y, beta_star) {
 # Returns n by B matrix of scaled residuals
 # proj (I-P) is optional
 # An intercept term is added
-resid_gen_ols <- function(x, proj, B=250, rand_gen = rnorm) {
+resid_gen_ols <- function(x, proj, B=250, rand_gen = rnorm, error_mat = NULL) {
   n <- nrow(x)
   if (missing(proj)) {
     x <- cbind(1, x) # add intercept
@@ -58,7 +58,8 @@ resid_gen_ols <- function(x, proj, B=250, rand_gen = rnorm) {
     proj <- diag(rep(1, n)) - u%*%t(u) # I - P
   }
   n <- nrow(proj)
-  resid_sim <- scale(proj %*% matrix(rand_gen(B*n), ncol=B))*sqrt(n/(n-1))
+  error_mat <- if(is.null(error_mat)) matrix(rand_gen(B*n), ncol=B) else error_mat
+  resid_sim <- scale(proj %*% error_mat)*sqrt(n/(n-1))
   return(resid_sim)
 }
 

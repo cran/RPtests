@@ -30,6 +30,8 @@
 #'   null of a (sparse) Gaussian linear model. Setting \code{rand_gen=NULL}
 #'   resamples residuals to generate simulated errors and approximates a null of
 #'   i.i.d. errors with unknown distribution.
+#' @param noise_matrix An optional matrix whose columns are the simulated errors to use.
+#'   Note that \code{B} and \code{rand_gen} will be ignored if this is supplied.
 #' @param mc.cores The number of cores to use. Will always be 1 in Windows.
 #' @param nfolds Number of folds to use when performing cross-validation to
 #'   obtain \code{beta_est}, the initial estimate of the vector of regression
@@ -42,6 +44,7 @@
 #'   an RP function.
 #' @param output_all In addition to the p-value, gives further output (see Value
 #'   below).
+#' @param verbose Whether to print addition information.
 #' @details
 #'   The function works by first computing residuals from a regression of
 #'   y on x. Next \code{B} sets of errors generated through \code{rand_gen} are
@@ -111,9 +114,13 @@
 #' @useDynLib RPtests
 #' @importFrom Rcpp sourceCpp
 #' @import stats
-RPtest <- function(x, y, resid_type=c("Lasso", "OLS"), test=c("nonlin", "group", "hetero"),
-                    x_alt, RPfunction=NULL, B=49L, rand_gen = rnorm, mc.cores=1L,
-                    nfolds=5L, nperms=2L, beta_est, resid_only=FALSE, output_all=FALSE) {
+RPtest <- function(x, y, resid_type=c("Lasso", "OLS"),
+                   test=c("nonlin", "group", "hetero"),
+                   x_alt, RPfunction=NULL, B=49L, rand_gen = rnorm,
+                   noise_matrix = NULL, mc.cores=1L,
+                   nfolds=5L, nperms=2L, beta_est = NULL, resid_only=FALSE,
+                   output_all=FALSE,
+                   verbose = FALSE) {
 
   # Params not currently used
   sigma_star_fac = 1
@@ -138,7 +145,7 @@ RPtest <- function(x, y, resid_type=c("Lasso", "OLS"), test=c("nonlin", "group",
 
   # Compute simulated residuals
   if (resid_type != "OLS") {
-    if (missing(beta_est)) {
+    if (is.null(beta_est)) {
       nfolds <- as.integer(nfolds)
       if (nfolds < 2L) stop("nfolds must be an integer at least 2.")
       # Compute beta_est
@@ -167,34 +174,42 @@ RPtest <- function(x, y, resid_type=c("Lasso", "OLS"), test=c("nonlin", "group",
         sample((y - sig_est)/sigma_hat, n_samp, replace=TRUE)
       }
     }
-    # error_mat needed?
-    #error_mat <- sigma_est * matrix(rand_gen(n*B), n, B)
+    error_mat <- sigma_est *
+      if(is.null(noise_matrix)) matrix(rand_gen(n*B), n, B) else noise_matrix
+
+    if(verbose){
+      if(!is.null(noise_matrix)){
+        cat(paste("\nNoise matrix has been provided (",
+                  ncol(noise_matrix), "simulations)."))
+      }
+    }
+
 
     # Simulated residuals
-    resid_sim <- resid_gen_lasso(x, signal = sig_est, sigma_est=sigma_est, B=B, rand_gen=rand_gen,
-                                 mc.cores=mc.cores, lam0=NULL)
+    resid_sim <- resid_gen_lasso(x, signal = sig_est,
+                                 sigma_est=sigma_est, B=B, rand_gen=rand_gen,
+                                 mc.cores=mc.cores,
+                                 error_mat = error_mat,
+                                 lam0=NULL)
 
     # True residuals
     resid <- resid_lasso(x, y, lam0=NULL)
 
-    #rm(error_mat)
+    rm(error_mat)
   } else {
     # OLS
     resid_out <- resid_ols(x, y, incl_proj=TRUE)
     resid <- resid_out$resid
-    if (is.null(rand_gen)) {
-      rand_gen <- function(n_samp) {
-        sample(resid, n_samp, replace=TRUE)
-      }
-    }
-    resid_sim <- resid_gen_ols(x, proj=resid_out$proj, B=B, rand_gen=rand_gen)
+    resid_sim <- resid_gen_ols(x, proj=resid_out$proj, B=B,
+                               rand_gen=rand_gen,
+                               error_mat = noise_matrix)
     rm(resid_out)
   }
 
   # Output residuals if resid_only is TRUE
   if (resid_only) return(list("call"=match.call(),
-                              "beta_est"=beta_est,
-                              "sigma_est"=sigma_est,
+                              "beta_est"=if(exists("beta_est")) beta_est else NULL,
+                              "sigma_est"=if(exists("sigma_est")) sigma_est else NULL,
                               "resid"=resid,
                               "resid_sim"=resid_sim))
 
@@ -256,8 +271,8 @@ RPtest <- function(x, y, resid_type=c("Lasso", "OLS"), test=c("nonlin", "group",
   # output_all == TRUE
   return(list("call"=match.call(),
               "p-value"=pval_computed,
-              "beta_est"=beta_est,
-              "sigma_est"=sigma_est,
+              "beta_est"=if(exists("beta_est")) beta_est else NULL,
+              "sigma_est"=if(exists("sigma_est")) sigma_est else NULL,
               "resid"=resid,
               "resid_sim"=resid_sim,
               "test"=test,

@@ -6,8 +6,9 @@
 \usage{
 RPtest(x, y, resid_type = c("Lasso", "OLS"), test = c("nonlin", "group",
   "hetero"), x_alt, RPfunction = NULL, B = 49L, rand_gen = rnorm,
-  mc.cores = 1L, nfolds = 5L, nperms = 2L, beta_est, resid_only = FALSE,
-  output_all = FALSE)
+  noise_matrix = NULL, mc.cores = 1L, nfolds = 5L, nperms = 2L,
+  beta_est = NULL, resid_only = FALSE, output_all = FALSE,
+  verbose = FALSE)
 }
 \arguments{
 \item{x}{Input matrix with \code{nobs} rows, each an observation vector.}
@@ -42,6 +43,9 @@ null of a (sparse) Gaussian linear model. Setting \code{rand_gen=NULL}
 resamples residuals to generate simulated errors and approximates a null of
 i.i.d. errors with unknown distribution.}
 
+\item{noise_matrix}{An optional matrix whose columns are the simulated errors to use.
+Note that \code{B} and \code{rand_gen} will be ignored if this is supplied.}
+
 \item{mc.cores}{The number of cores to use. Will always be 1 in Windows.}
 
 \item{nfolds}{Number of folds to use when performing cross-validation to
@@ -59,6 +63,8 @@ an RP function.}
 
 \item{output_all}{In addition to the p-value, gives further output (see Value
 below).}
+
+\item{verbose}{Whether to print addition information.}
 }
 \value{
 When \code{resid_only=FALSE} and \code{output_all=FALSE}, the output
