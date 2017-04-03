@@ -1,5 +1,5 @@
-9f51b26b3eb41155d6d718ffe6463157 *DESCRIPTION
-5110557b4edb5a85382992b81372c21b *NAMESPACE
+6d7d95bf8d1be420ef263e998bf4638b *DESCRIPTION
+905938c2b5e71e210c4bc0dc967cae81 *NAMESPACE
 5aa2d2397a455e8a22dc9678f4873abd *R/RPtest.R
 3f6adeab1e1978e740e1f6549d798201 *R/RPtest_single.R
 038e691d7888c351a8f8fb945a230928 *R/RcppExports.R
@@ -14,4 +14,5 @@ b1aed29ed5ef644d5d96bba8052603fb *man/RPtest.Rd
 00937c238ab6778ef751e4f776f6712a *man/sparse_proj.Rd
 3ccdb9ee80dc8900bafa8fd26600652b *man/sqrt_lasso.Rd
 2ee00893e434bbfc526c308deedb5aee *src/Aux_functions.cpp
+707e1b15023e7d290356d7aa8af3a794 *src/RPtests_init.c
 7e17e6a39f961890556e3d264e530a52 *src/RcppExports.cpp
