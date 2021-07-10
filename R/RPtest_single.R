@@ -19,8 +19,8 @@
 #'   approximates nulls of i.i.d. errors with unknown distributions.
 #' @param mc.cores Number of cores to use.
 #' @return A vector of p-values for each variable.
-#' @references Shah, R. D., Buhlmann, P. (2016) \emph{Goodness of fit tests for
-#'   high-dimensional linear models} \url{http://arxiv.org/abs/1511.03334}
+#' @references Shah, R. D., Buhlmann, P. (2017) \emph{Goodness of fit tests for
+#'   high-dimensional linear models} \url{https://rss.onlinelibrary.wiley.com/doi/10.1111/rssb.12234}
 #' @seealso \code{\link{RPtest}} and \code{\link{sparse_proj}}
 #' @examples
 #' x <- scale(matrix(rnorm(50*100), 50, 100))

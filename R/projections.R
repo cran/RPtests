@@ -19,13 +19,12 @@
 #' @references A. Belloni, V. Chernozhukov, and L. Wang. (2011)
 #'   \emph{Square-root lasso: pivotal recovery of sparse signals via conic
 #'   programming. Biometrika, 98(4):791-806.}
-#'   \url{http://biomet.oxfordjournals.org/content/98/4/791.refs} T. Sun and
-#'   C.-H. Zhang. (2012) \emph{Scaled sparse linear regression. Biometrika,
+#'
+#'   T. Sun and C.-H. Zhang. (2012) \emph{Scaled sparse linear regression. Biometrika,
 #'   99(4):879-898.}
-#'   \url{http://biomet.oxfordjournals.org/content/early/2012/09/24/biomet.ass043.short}
+#'
 #'    T. Sun and C.-H. Zhang. (2013) \emph{Sparse matrix inversion with scaled
 #'   lasso. The Journal of Machine Learning Research, 14(1):3385-3418.}
-#'   \url{www.jmlr.org/papers/volume14/sun13a/sun13a.pdf}
 #' @seealso \code{\link{sqrt_lasso}} and \code{\link{RPtest_single}}.
 #' @examples
 #' x <- matrix(rnorm(50*100), 50, 100)

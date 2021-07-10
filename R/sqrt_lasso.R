@@ -19,7 +19,7 @@
 #' @details First the Lasso path is computed using \code{glmnet} from
 #'   \pkg{glmnet}. Next the particular point on the path corresponding to the
 #'   square-root Lasso solution is found. As the path is only computed on a grid
-#'   of points, the square-root solution is approximate.
+#'   of points, the square-root Lasso solution is approximate.
 #' @return Either an estimated vector of regression coefficients with nvars
 #'   components or, if \code{output_all} is \code{true}, a list with components
 #'   \describe{
@@ -28,19 +28,20 @@
 #'     \item{\code{sigma_hat}}{an estimate of
 #'       the noise standard deviation; this is calculated as square-root of the
 #'       average residual sums of squares}
-#'     \item{\code{glm_obj}}{the fitted \code{glmnet} object, an S3 class ``\code{glmnet}"}
+#'     \item{\code{glmnet_obj}}{the fitted \code{glmnet} object, an S3 class ``\code{glmnet}"}
+#'     \item{\code{lamda_index}}{the index of the lambda vector in the \code{glmnet} object
+#'       corresponding to the square-root Lasso solution}
 #'   }
 #' @references
 #'   A. Belloni, V. Chernozhukov, and L. Wang. (2011)
 #'   \emph{Square-root lasso: pivotal recovery of sparse signals via conic
 #'   programming. Biometrika, 98(4):791-806.}
-#'   \url{http://biomet.oxfordjournals.org/content/98/4/791.refs} T. Sun and
-#'   C.-H. Zhang. (2012) \emph{Scaled sparse linear regression. Biometrika,
+#'
+#'   T. Sun and C.-H. Zhang. (2012) \emph{Scaled sparse linear regression. Biometrika,
 #'   99(4):879-898.}
-#'   \url{http://biomet.oxfordjournals.org/content/early/2012/09/24/biomet.ass043.short}
-#'    T. Sun and C.-H. Zhang. (2013) \emph{Sparse matrix inversion with scaled
+#'
+#'   T. Sun and C.-H. Zhang. (2013) \emph{Sparse matrix inversion with scaled
 #'   lasso. The Journal of Machine Learning Research, 14(1):3385-3418.}
-#'   \url{www.jmlr.org/papers/volume14/sun13a/sun13a.pdf}
 #' @seealso \code{\link[glmnet]{glmnet}} and \code{\link[scalreg]{scalreg}}.
 #' @examples
 #' x <- matrix(rnorm(100*250), 100, 250)
@@ -80,7 +81,8 @@ sqrt_lasso <- function(x, y, lam0=NULL, exclude = integer(0), output_all = FALSE
     return(list("beta"=as.numeric(out$beta[, index_sel]),
                 "a0"=out$a0[index_sel],
                 "sigma_hat"=sqrt(full_MSE[index_sel]),
-                "glmnet_obj"=out))
+                "glmnet_obj"=out,
+                "lambda_index"=index_sel))
   }
   return(as.numeric(out$beta[, index_sel]))
 }

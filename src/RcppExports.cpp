@@ -5,9 +5,14 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // colMax
 NumericVector colMax(NumericMatrix mat, bool na_rm);
-RcppExport SEXP RPtests_colMax(SEXP matSEXP, SEXP na_rmSEXP) {
+RcppExport SEXP _RPtests_colMax(SEXP matSEXP, SEXP na_rmSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -16,4 +21,14 @@ BEGIN_RCPP
     rcpp_result_gen = Rcpp::wrap(colMax(mat, na_rm));
     return rcpp_result_gen;
 END_RCPP
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_RPtests_colMax", (DL_FUNC) &_RPtests_colMax, 2},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_RPtests(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }

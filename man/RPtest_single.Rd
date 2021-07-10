@@ -42,10 +42,9 @@ y <- as.numeric(x[, 1:5] \%*\% rep(1, 5) + rnorm(nrow(x)))
 out <- RPtest_single(x=x, y=y, B=25)
 }
 \references{
-Shah, R. D., Buhlmann, P. (2016) \emph{Goodness of fit tests for
-  high-dimensional linear models} \url{http://arxiv.org/abs/1511.03334}
+Shah, R. D., Buhlmann, P. (2017) \emph{Goodness of fit tests for
+  high-dimensional linear models} \url{https://rss.onlinelibrary.wiley.com/doi/10.1111/rssb.12234}
 }
 \seealso{
 \code{\link{RPtest}} and \code{\link{sparse_proj}}
 }
-

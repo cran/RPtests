@@ -15,8 +15,8 @@
 #'   components are first discarded to make all the test statistics have equal
 #'   length.
 #' @return A single p-value.
-#' @references Shah, R. D., Buhlmann, P. (2016) \emph{Goodness of fit tests for
-#'   high-dimensional linear models} \url{http://arxiv.org/abs/1511.03334}
+#' @references Shah, R. D., Buhlmann, P. (2017) \emph{Goodness of fit tests for
+#'   high-dimensional linear models} \url{https://rss.onlinelibrary.wiley.com/doi/10.1111/rssb.12234}
 #' @seealso \code{\link{RPtest}} the output of which this would typically be
 #'   applied to.
 #' @export

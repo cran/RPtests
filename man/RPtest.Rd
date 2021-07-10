@@ -4,11 +4,24 @@
 \alias{RPtest}
 \title{Goodness of fit tests for potentially high-dimensional linear models}
 \usage{
-RPtest(x, y, resid_type = c("Lasso", "OLS"), test = c("nonlin", "group",
-  "hetero"), x_alt, RPfunction = NULL, B = 49L, rand_gen = rnorm,
-  noise_matrix = NULL, mc.cores = 1L, nfolds = 5L, nperms = 2L,
-  beta_est = NULL, resid_only = FALSE, output_all = FALSE,
-  verbose = FALSE)
+RPtest(
+  x,
+  y,
+  resid_type = c("Lasso", "OLS"),
+  test = c("nonlin", "group", "hetero"),
+  x_alt,
+  RPfunction = NULL,
+  B = 49L,
+  rand_gen = rnorm,
+  noise_matrix = NULL,
+  mc.cores = 1L,
+  nfolds = 5L,
+  nperms = 2L,
+  beta_est = NULL,
+  resid_only = FALSE,
+  output_all = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{x}{Input matrix with \code{nobs} rows, each an observation vector.}
@@ -140,10 +153,9 @@ y <- x[, 1:5] \%*\% rep(1, 5) + sd_vec*rnorm(nrow(x))
 (out <- RPtest(x, y, test="hetero", B=9L, nperms=1))
 }
 \references{
-Shah, R. D., Buhlmann, P. (2016) \emph{Goodness of fit tests for
-  high-dimensional linear models} \url{http://arxiv.org/abs/1511.03334}
+Shah, R. D., Buhlmann, P. (2017) \emph{Goodness-of-fit tests for
+  high dimensional linear models} \url{https://rss.onlinelibrary.wiley.com/doi/10.1111/rssb.12234}
 }
 \seealso{
 \code{\link{RPtest_single}} and \code{\link{sqrt_lasso}}
 }
-

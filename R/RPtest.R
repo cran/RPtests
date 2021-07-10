@@ -88,8 +88,8 @@
 #'     functions are being used such as when \code{test=group}}
 #'     \item{\code{test_sim}}{a list of simulated test statistics}
 #'   }
-#' @references Shah, R. D., Buhlmann, P. (2016) \emph{Goodness of fit tests for
-#'   high-dimensional linear models} \url{http://arxiv.org/abs/1511.03334}
+#' @references Shah, R. D., Buhlmann, P. (2017) \emph{Goodness-of-fit tests for
+#'   high dimensional linear models} \url{https://rss.onlinelibrary.wiley.com/doi/10.1111/rssb.12234}
 #' @seealso \code{\link{RPtest_single}} and \code{\link{sqrt_lasso}}
 #' @examples
 #' # Testing for nonlinearity
